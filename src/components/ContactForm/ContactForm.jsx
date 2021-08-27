@@ -2,21 +2,28 @@ import React, { Component } from 'react';
 import './ContactForm.css';
 
 class ContactForm extends Component {
-    state = {
+    initialState = {
         name: '',
         number: ''
     }
+    
+    state = this.initialState;
+
+    handleFormReset = () => {
+    this.setState(() => this.initialState)
+  }
 
     handleChange = e => {
         const { name, value } = e.currentTarget;
         this.setState({ [name]: value });
     }
-    
+
+
     render() {
         const { name, number } = this.state;
 
         return (
-            <form className="ContactForm" onSubmit={this.props.onChange}>
+            <form className="ContactForm" onReset={this.handleFormReset} onSubmit={this.props.onChange}>
                 <label htmlFor="name" className="ContactForm__name">Name</label>
                 <input
                     className="ContactForm__input"
@@ -43,7 +50,7 @@ class ContactForm extends Component {
                     required
                     onChange={this.handleChange}
                 />
-                <button type="submit" className="ContactForm__button">Add contact</button>
+                <button type="submit"  className="ContactForm__button">Add contact</button>
             </form>
         )
     }

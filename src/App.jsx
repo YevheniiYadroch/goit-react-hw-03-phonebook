@@ -18,12 +18,14 @@ class App extends Component {
 
   formChangeHandle = e => {
     e.preventDefault();
+    const form = e.target;
     if (this.state.contacts.some(item => item.name === e.target.children.name.value)) {
       return alert(`${e.target.children.name.value} is already in contacts`);
     }
     this.setState(prevValue => (
       { contacts: [...prevValue.contacts, { id: uuidv4(), name: e.target.children.name.value, number: e.target.children.number.value}]}
     ))
+    form.reset();
   }
 
   searchHandle = e => {
@@ -34,6 +36,21 @@ class App extends Component {
     this.setState(prevValue => (
       {contacts: prevValue.contacts.filter(item => item.id !== e.target.dataset.id)}
     ))
+  }
+
+  componentDidUpdate(prevProps, prevState ) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+    }
+  }
+
+  componentDidMount() {
+    const contacts = JSON.parse(localStorage.getItem('contacts'))
+    if (contacts !== null) {
+      this.setState({
+      contacts: contacts,
+      })
+    }
   }
 
   render() {
