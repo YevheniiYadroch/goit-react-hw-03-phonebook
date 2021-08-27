@@ -1,0 +1,16 @@
+.ContactList__text {
+  display: inline-block;
+  margin-right: 30px;
+}
+
+.ContactList__button {
+  border: solid 1px gray;
+  border-radius: 5px;
+  background-color: azure;
+  transition: background-color 0.5s 0s ease;
+}
+
+.ContactList__button:hover,
+.ContactList__button:focus {
+  background-color: aqua;
+}

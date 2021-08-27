@@ -1,0 +1,9 @@
+.Filter {
+  display: flex;
+  flex-direction: column;
+}
+
+.Filter__title {
+  margin: 0px 0px 10px;
+  font-weight: 500;
+}
