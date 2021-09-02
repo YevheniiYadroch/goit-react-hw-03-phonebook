@@ -16,6 +16,21 @@ class App extends Component {
     filter: ''
   }
 
+  componentDidUpdate(prevProps, prevState ) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+    }
+  }
+
+  componentDidMount() {
+    const contacts = JSON.parse(localStorage.getItem('contacts'))
+    if (contacts !== null) {
+      this.setState({
+      contacts: contacts,
+      })
+    }
+  }
+
   formChangeHandle = e => {
     e.preventDefault();
     const form = e.target;
@@ -38,22 +53,7 @@ class App extends Component {
       {contacts: prevValue.contacts.filter(item => item.id !== e.target.dataset.id)}
     ))
   }
-
-  componentDidUpdate(prevProps, prevState ) {
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
-    }
-  }
-
-  componentDidMount() {
-    const contacts = JSON.parse(localStorage.getItem('contacts'))
-    if (contacts !== null) {
-      this.setState({
-      contacts: contacts,
-      })
-    }
-  }
-
+  
   render() {
     const list = this.state.contacts.filter(item => item.name.toLowerCase().includes(this.state.filter.toLowerCase()))
     return (
