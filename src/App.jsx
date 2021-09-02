@@ -20,7 +20,8 @@ class App extends Component {
     e.preventDefault();
     const form = e.target;
     if (this.state.contacts.some(item => item.name === e.target.children.name.value)) {
-      return alert(`${e.target.children.name.value} is already in contacts`);
+      alert(`${e.target.children.name.value} is already in contacts`);
+      return form.reset();
     }
     this.setState(prevValue => (
       { contacts: [...prevValue.contacts, { id: uuidv4(), name: e.target.children.name.value, number: e.target.children.number.value}]}
